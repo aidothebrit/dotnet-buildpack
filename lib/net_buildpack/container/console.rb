@@ -89,7 +89,7 @@ module NETBuildpack::Container
 
       def start_run_script
         runtime_command = ContainerUtils.space(@runtime_command)
-        exe_string = ContainerUtils.space(console_executable)
+        exe_string = ContainerUtils.space("$HOME/" + console_executable)
         arguments_string = ContainerUtils.space(arguments)
 
         "#{runtime_command}#{exe_string}#{arguments_string}".strip
