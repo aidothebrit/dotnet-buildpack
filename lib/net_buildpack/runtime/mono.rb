@@ -108,7 +108,7 @@ module NETBuildpack::Runtime
       start_script = "#!/usr/bin/env bash"
       start_script = [start_script, "\n", "while [ : ]"].join()
       start_script = [start_script, "\n", "do"].join()
-      start_script = [start_script, "\n", "  echo \"STARTING IN $(HOME)\""].join()
+      start_script = [start_script, "\n", "  echo \"STARTING IN $HOME\""].join()
       start_script = [start_script, "\n", "  sleep 1"].join()
       start_script = [start_script, "\n", "done"].join()
 	  
@@ -126,7 +126,8 @@ module NETBuildpack::Runtime
 
       File.chmod(0555, start_script_path) # -r-xr-xr-x -> Read & Execute
 
-      start_script_path.gsub! @context[:app_dir], "$HOME"
+      #start_script_path.gsub! @context[:app_dir], "$HOME"
+      start_script_path.gsub! @context[:app_dir] + "/", ""
     end
 
     def expand(file)
