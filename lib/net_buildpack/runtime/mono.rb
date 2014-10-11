@@ -106,6 +106,7 @@ module NETBuildpack::Runtime
 
     def create_start_script
       start_script = "#!/usr/bin/env bash"
+      start_script = [start_script, "\n", "echo \"STARTING IN $HOME\""].join()
 
       #Add the init command(s)
       @context[:start_script][:init].each do |value|
