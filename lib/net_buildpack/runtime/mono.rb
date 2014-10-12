@@ -138,7 +138,7 @@ module NETBuildpack::Runtime
 
     def expand(file)
       expand_start_time = Time.now
-      print "       expanding Mono to #{MONO_HOME} "
+      print "       expanding XXX Mono to #{MONO_HOME} "
 
       system "rm -rf #{stage_time_absolute_path(MONO_HOME)}"
       system "mkdir -p #{stage_time_absolute_path(MONO_HOME)}"
