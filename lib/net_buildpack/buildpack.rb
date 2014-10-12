@@ -128,8 +128,8 @@ module NETBuildpack
     def release
 #      run_hook('pre_release', {:silent => true})
       
-      frameworks.each { |framework| framework.release }
-      container.release
+#      frameworks.each { |framework| framework.release }
+#      container.release
       start_script = runtime.release
 
 #      write_profile_d_net_buildpack_env
