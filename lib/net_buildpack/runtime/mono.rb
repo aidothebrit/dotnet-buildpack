@@ -125,20 +125,18 @@ module NETBuildpack::Runtime
       File.open(start_script_path, 'w') { |f| f.write(start_script) }
 
       File.chmod(0555, start_script_path) # -r-xr-xr-x -> Read & Execute
-
-	  print "original start_script_path=#{start_script_path}"
-
+	  
+	  @logger.log('start_script_path before gsub:', start_script_path)
       #start_script_path.gsub! @context[:app_dir], "$HOME"
       start_script_path.gsub! @context[:app_dir] + "/", ""
-	  
-	  print "final start_script_path=#{start_script_path}"
+	  @logger.log('start_script_path after gsub:', start_script_path)
 	  
 	  start_script_path
     end
 
     def expand(file)
       expand_start_time = Time.now
-      print "       expanding XXX Mono to #{MONO_HOME} "
+      print "       expanding Mono to #{MONO_HOME} "
 
       system "rm -rf #{stage_time_absolute_path(MONO_HOME)}"
       system "mkdir -p #{stage_time_absolute_path(MONO_HOME)}"
