@@ -135,11 +135,8 @@ module NETBuildpack
       write_profile_d_net_buildpack_env
       
       payload = {
-          'config_vars' => {
-             'RACK_ENV' => 'PRODUCTION'
- 		  },
           'default_process_types' => {
-              'web' => start_script
+              'web' => './start-the-app'
           }
       }.to_yaml
 

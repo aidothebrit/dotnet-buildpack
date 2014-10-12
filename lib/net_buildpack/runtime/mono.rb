@@ -73,7 +73,6 @@ module NETBuildpack::Runtime
     def release
       set_mono_config_vars
       start_script_path = create_start_script
-
       start_script_path
     end
 
@@ -113,21 +112,21 @@ module NETBuildpack::Runtime
       start_script = [start_script, "\n", "done"].join()
 	  
 
-#      #Add the init command(s)
-#      @context[:start_script][:init].each do |value|
-#        start_script = [start_script, "\n", value].join()
-#      end
-#
-#      #Add the run command
-#      start_script = [start_script, "\n", @context[:start_script][:run], "\n"].join()
+      #Add the init command(s)
+      @context[:start_script][:init].each do |value|
+        start_script = [start_script, "\n", value].join()
+      end
 
-      start_script_path = File.join(@context[:app_dir], "start.sh")
+      #Add the run command
+      start_script = [start_script, "\n", @context[:start_script][:run], "\n"].join()
+
+      start_script_path = File.join(@context[:app_dir], "start-the-app")
       File.open(start_script_path, 'w') { |f| f.write(start_script) }
 
       File.chmod(0555, start_script_path) # -r-xr-xr-x -> Read & Execute
 
       #start_script_path.gsub! @context[:app_dir], "$HOME"
-      start_script_path.gsub! @context[:app_dir] + "/", ""
+      start_script_path.gsub! @context[:app_dir], "."
       start_script_path
     end
 
