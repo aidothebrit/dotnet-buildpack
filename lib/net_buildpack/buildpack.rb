@@ -126,13 +126,13 @@ module NETBuildpack
     #
     # @return [String] The payload required to run the application.
     def release
-      run_hook('pre_release', {:silent => true})
+#      run_hook('pre_release', {:silent => true})
       
       frameworks.each { |framework| framework.release }
       container.release
       start_script = runtime.release
 
-      write_profile_d_net_buildpack_env
+#      write_profile_d_net_buildpack_env
       
       payload = {
           'default_process_types' => {
@@ -140,9 +140,9 @@ module NETBuildpack
           }
       }.to_yaml
 
-      @logger.log('Release Payload', payload)
+#      @logger.log('Release Payload', payload)
 
-      run_hook('post_release', {:silent => true})
+#      run_hook('post_release', {:silent => true})
 
       payload
     end
