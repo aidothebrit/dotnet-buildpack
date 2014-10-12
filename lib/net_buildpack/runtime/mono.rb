@@ -127,14 +127,14 @@ module NETBuildpack::Runtime
     end
 
     def expand(file)
-      expand_start_time = Time.now
-      print "       expanding Mono to #{MONO_HOME} "
-
-      system "rm -rf #{stage_time_absolute_path(MONO_HOME)}"
-      system "mkdir -p #{stage_time_absolute_path(MONO_HOME)}"
-      system "tar xzf #{file.path} -C #{stage_time_absolute_path(MONO_HOME)} --strip 1 2>&1"
-
-      puts "(#{(Time.now - expand_start_time).duration})"
+#      expand_start_time = Time.now
+#      print "       expanding Mono to #{MONO_HOME} "
+#
+#      system "rm -rf #{stage_time_absolute_path(MONO_HOME)}"
+#      system "mkdir -p #{stage_time_absolute_path(MONO_HOME)}"
+#      system "tar xzf #{file.path} -C #{stage_time_absolute_path(MONO_HOME)} --strip 1 2>&1"
+#
+#      puts "(#{(Time.now - expand_start_time).duration})"
     end
 
     def self.find_mono(configuration)
