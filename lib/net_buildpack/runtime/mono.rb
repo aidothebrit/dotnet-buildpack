@@ -126,8 +126,14 @@ module NETBuildpack::Runtime
 
       File.chmod(0555, start_script_path) # -r-xr-xr-x -> Read & Execute
 
+	  print "original start_script_path=#{start_script_path}"
+
       #start_script_path.gsub! @context[:app_dir], "$HOME"
       start_script_path.gsub! @context[:app_dir] + "/", ""
+	  
+	  print "final start_script_path=#{start_script_path}"
+	  
+	  start_script_path
     end
 
     def expand(file)
