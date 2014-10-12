@@ -108,18 +108,18 @@ module NETBuildpack::Runtime
       start_script = "#!/usr/bin/env bash"
       start_script = [start_script, "\n", "while [ : ]"].join()
       start_script = [start_script, "\n", "do"].join()
-      start_script = [start_script, "\n", "  echo \"STARTING IN $HOME\""].join()
+      start_script = [start_script, "\n", "  echo \"RUNNING\""].join()
       start_script = [start_script, "\n", "  sleep 1"].join()
       start_script = [start_script, "\n", "done"].join()
 	  
 
-      #Add the init command(s)
-      @context[:start_script][:init].each do |value|
-        start_script = [start_script, "\n", value].join()
-      end
-
-      #Add the run command
-      start_script = [start_script, "\n", @context[:start_script][:run], "\n"].join()
+#      #Add the init command(s)
+#      @context[:start_script][:init].each do |value|
+#        start_script = [start_script, "\n", value].join()
+#      end
+#
+#      #Add the run command
+#      start_script = [start_script, "\n", @context[:start_script][:run], "\n"].join()
 
       start_script_path = File.join(@context[:app_dir], "start.sh")
       File.open(start_script_path, 'w') { |f| f.write(start_script) }
