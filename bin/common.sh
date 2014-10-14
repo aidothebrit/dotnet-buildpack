@@ -56,5 +56,5 @@ stagetime_path() {
 }
 
 runtime_path() {
-  echo "app/$1"
+  echo "./$1"
 }
