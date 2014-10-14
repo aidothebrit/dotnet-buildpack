@@ -30,7 +30,7 @@ cat << 'EOF' > $bootstrap
 #!/usr/bin/env bash
 while [ : ]
 do
-  echo "bootstrap running in $(pwd) real path to folder is $(cd $(dirname $0); cd ..; pwd)"
+  echo "bootstrap running mono $(./vendor/mono/bin/mono --version)"
   sleep 1
 done
 $mono $target
