@@ -30,7 +30,7 @@ cat << EOF > $bootstrap
 #!/usr/bin/env bash
 while [ : ]
 do
-  echo "bootstrap running"
+  echo "bootstrap running in $(pwd)"
   sleep 1
 done
 $mono $target
