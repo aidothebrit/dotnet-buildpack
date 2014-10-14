@@ -1,36 +1,18 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
 
-# Cloud Foundry NET Buildpack
-# Copyright (c) 2013 the original author or authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+bp_dir=$(cd $(dirname $0); cd ..; pwd)
+source $bp_dir/bin/common.sh
 
-$stdout.sync = true
-$:.unshift File.expand_path("../../lib", __FILE__)
+build_dir=$1
 
-require 'net_buildpack'
-require 'pp'
+# Search for a .exe file with corresponding .exe.config file.
+target=$(get_target)
 
-build_dir = ARGV[0]
+# no match, not .net project
+if [ "$target" == "" ]; then
+    echo "no" && exit 1
+else
+    echo "mono; $target" && exit 0
+fi
 
-begin
-  components = NETBuildpack::Buildpack.new(build_dir).detect().compact
-  unless components.empty?
-    puts components.join(', ')
-  else
-    abort
-  end
-rescue => e
-  puts "Detect failed with exception #{PP.pp e.inspect}, #{PP.pp e.backtrace}\n"
-  abort e.message
-end
+

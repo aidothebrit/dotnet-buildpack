@@ -1,36 +1,37 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
 
-# Cloud Foundry NET Buildpack
-# Copyright (c) 2013 the original author or authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+bp_dir=$(cd $(dirname $0); cd ..; pwd)
+source $bp_dir/bin/common.sh
 
-$stdout.sync = true
-$:.unshift File.expand_path("../../lib", __FILE__)
+build_dir=$1
+run_dir="/app"
+cache_dir=$2
+env_dir=$3
+vendor_dir=$(stagetime_path "vendor")
+mono_url="https://ci-labs-buildpack-downloads.s3.amazonaws.com/mono/lucid/x86_64/mono-3.4.0_full.tar.gz"
 
-require 'net_buildpack'
-require 'pp'
+# fetch mono
+status "Downloading and installing mono"
+mkdir -p $vendor_dir
+curl $mono_url -s -o - | tar xzf - -C $vendor_dir
 
-build_dir = ARGV[0]
-cache_dir = ARGV[1]
+# update certificates - not sure about this as runtime path ony available at runtime,
+# may need to move the stuff below into bootstrap.
+#ln -s $(stagetime_path "vendor") $(runtime_path "vendor")
+#$(stagetime_path "vendor/mono/bin/mozroots") --import --sync
 
-begin
-  NETBuildpack::Buildpack.new(build_dir).compile
-rescue => e
-  puts "Compile failed with exception #{e.inspect}"
-  puts "at: "
-  PP.pp e.backtrace
-  puts "Buildpack diagnostics log"
-  puts `cat #{build_dir}/.buildpack-diagnostics/buildpack.log`
-  abort e.message
-end
+# make bootstrap
+mono=$(runtime_path "vendor/mono/bin/mono")
+target=$(runtime_path $(get_target))
+bootstrap=$(stagetime_path "bootstrap")
+
+# the actual file.
+cat << EOF > $bootstrap
+#!/usr/bin/env bash
+$mono $target
+EOF
+
+# Make it executable
+chmod 777 $bootstrap
+
+

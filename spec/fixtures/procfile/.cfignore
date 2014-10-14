@@ -1,7 +1,0 @@
-tmp/
-obj/
-myapp-web/
-myapp-worker/
-packages/
-*.sln
-*.userprefs
