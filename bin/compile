@@ -13,7 +13,7 @@ mono_url="https://ci-labs-buildpack-downloads.s3.amazonaws.com/mono/lucid/x86_64
 # fetch mono
 status "Downloading and installing mono"
 mkdir -p $vendor_dir
-curl $mono_url -s -o - | tar xzf - -C $vendor_dir
+#curl $mono_url -s -o - | tar xzf - -C $vendor_dir
 
 # update certificates - not sure about this as runtime path ony available at runtime,
 # may need to move the stuff below into bootstrap.
