@@ -32,11 +32,6 @@ bootstrap=$(stagetime_path "bootstrap")
 # the actual file.
 cat << EOF > $bootstrap
 #!/usr/bin/env bash
-while [ : ]
-do
-  echo "bootstrap running"
-  sleep 1
-done
 $mono $target
 EOF
 
