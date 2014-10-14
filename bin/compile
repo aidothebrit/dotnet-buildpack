@@ -26,11 +26,11 @@ target=$(runtime_path $(get_target))
 bootstrap=$(stagetime_path "bootstrap")
 
 # the actual file.
-cat << 'EOF' > $bootstrap
+cat << EOF > $bootstrap
 #!/usr/bin/env bash
 while [ : ]
 do
-  echo "bootstrap running mono $(./vendor/mono/bin/mono --version)"
+  echo "bootstrap running"
   sleep 1
 done
 $mono $target
