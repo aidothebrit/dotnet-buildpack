@@ -10,6 +10,11 @@ env_dir=$3
 vendor_dir=$(stagetime_path "vendor")
 mono_url="https://ci-labs-buildpack-downloads.s3.amazonaws.com/mono/lucid/x86_64/mono-3.4.0_full.tar.gz"
 
+# The target exe (maybe this should be communicated by file from detect step)
+# This must be done prior to download and unzip of mono otherwise we will pick
+# up stuff from the mono runtime.
+target=$(runtime_path $(get_target))
+
 # fetch mono
 status "Downloading and installing mono"
 mkdir -p $vendor_dir
@@ -22,7 +27,6 @@ curl $mono_url -s -o - | tar xzf - -C $vendor_dir
 
 # make bootstrap
 mono=$(runtime_path "vendor/mono/bin/mono")
-target=$(runtime_path $(get_target))
 bootstrap=$(stagetime_path "bootstrap")
 
 # the actual file.
