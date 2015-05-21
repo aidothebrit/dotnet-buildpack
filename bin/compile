@@ -8,7 +8,7 @@ run_dir="/app"
 cache_dir=$2
 env_dir=$3
 vendor_dir=$(stagetime_path "vendor")
-mono_url="https://s3-eu-west-1.amazonaws.com/monodeploys/mono-3.10.0.tar.gz"
+mono_url="https://ci-labs-buildpack-downloads.s3.amazonaws.com/mono/lucid/x86_64/mono-3.4.0_full.tar.gz"
 
 
 # The target exe (maybe this should be communicated by file from detect step)
