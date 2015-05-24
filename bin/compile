@@ -8,7 +8,7 @@ run_dir="/app"
 cache_dir=$2
 env_dir=$3
 vendor_dir=$(stagetime_path "vendor")
-mono_url="https://ci-labs-buildpack-downloads.s3.amazonaws.com/mono/lucid/x86_64/mono-3.4.0_full.tar.gz"
+mono_url="https://s3-eu-west-1.amazonaws.com/monodeploys/mono-3.12.0-Sgen.tar.gz"
 
 
 # The target exe (maybe this should be communicated by file from detect step)
@@ -40,13 +40,14 @@ cp -f $bp_dir/resources/AppSettingsAutoReconfiguration/bin/*.* $vendor_dir/build
 status "Building Bootstrap"
 config=$(runtime_path "vendor/build_pack/AppSettingsAutoReconfiguration.exe")
 mono=$(runtime_path "vendor/mono/bin/mono")
+mono_flags="--version --gc=sgen"
 bootstrap=$(stagetime_path "bootstrap")
 
 # the actual file.
 cat << EOF > $bootstrap
 #!/usr/bin/env bash
-$mono $config $target.config
-$mono $target
+$mono $mono_flags $config $target.config
+$mono $mono_flags $target
 EOF
 
 echo "web: ./bootstrap" > $build_dir/Procfile
