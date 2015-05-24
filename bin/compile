@@ -40,7 +40,7 @@ cp -f $bp_dir/resources/AppSettingsAutoReconfiguration/bin/*.* $vendor_dir/build
 status "Building Bootstrap"
 config=$(runtime_path "vendor/build_pack/AppSettingsAutoReconfiguration.exe")
 mono=$(runtime_path "vendor/mono/bin/mono")
-mono_flags="--version --gc=sgen"
+mono_flags="--gc=sgen"
 bootstrap=$(stagetime_path "bootstrap")
 
 # the actual file.
