@@ -46,6 +46,8 @@ bootstrap=$(stagetime_path "bootstrap")
 # the actual file.
 cat << EOF > $bootstrap
 #!/usr/bin/env bash
+uname -r
+$mono $mono_flags --version
 $mono $mono_flags $config $target.config
 $mono $mono_flags $target
 EOF
