@@ -43,7 +43,7 @@ export_env_dir() {
 }
 
 get_target() {
-    find $build_dir -name '*.exe' | while read f; do 
+    find $build_dir -path '*/vendor' -prune -o -name '*.exe' | sort | while read f; do 
         if [ -f $f.config ]; then
             echo ${f#"$build_dir/"}
 	    exit 0
