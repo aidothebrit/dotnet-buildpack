@@ -49,11 +49,7 @@ cat << EOF > $bootstrap
 uname -r
 $mono $mono_flags --version
 $mono $mono_flags $config $target.config
-while true
-do
-  $mono $mono_flags $target
-  sleep 20
-done
+$mono $mono_flags $target
 EOF
 
 echo "web: ./bootstrap" > $build_dir/Procfile
