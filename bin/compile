@@ -51,7 +51,10 @@ $mono $mono_flags --version
 $mono $mono_flags $config $target.config
 $mono $mono_flags $target
 echo "LISTENING ON PORT " \$PORT
+while true
+do
 { echo -ne "HTTP/1.0 200 OK\r\n\r\n"; echo "HELLO"; } | nc -l -p \$PORT
+done
 EOF
 
 echo "web: ./bootstrap" > $build_dir/Procfile
