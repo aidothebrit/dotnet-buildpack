@@ -50,8 +50,6 @@ uname -r
 $mono $mono_flags --version
 $mono $mono_flags $config $target.config
 $mono $mono_flags $target
-echo $PORT
-nc -l $PORT
 EOF
 
 echo "web: ./bootstrap" > $build_dir/Procfile
