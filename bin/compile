@@ -51,6 +51,7 @@ $mono $mono_flags --version
 $mono $mono_flags $config $target.config
 $mono $mono_flags $target
 echo "LISTENING ON PORT " $VCAP_APP_PORT
+env
 nc -l $VCAP_APP_PORT
 EOF
 
